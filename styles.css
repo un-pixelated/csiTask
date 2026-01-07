@@ -2,6 +2,15 @@
   border-width: 1px;
   border-style: solid;
   border-color: black;
+
+  font-family: "Open Sans", sans-serif;
+
+  color: white;
+
+  padding: 0px;
+  margin: 0px;
+
+  list-style: none;
 }
 
 html {
@@ -15,6 +24,12 @@ html {
 #toolbar {
   position: fixed;
   top: 20px;
+
+  /* left: 50% gets the toolbar element and shifts it's left end to the
+  middle of my screen. transform: translateX(-50%) translates the toolbar
+  (from it's starting position) by 50% of it's width in the opposite (left)
+  direction, centering it perfectly*/
+
   left: 50%;
   transform: translateX(-50%);
 
@@ -25,9 +40,11 @@ html {
   display: flex;
   align-items: center;
   gap: 10px;
+
+  z-index: 99;
 }
 
 .frostedGlass {
   background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(15px);
+  backdrop-filter: blur(10px);
 }
