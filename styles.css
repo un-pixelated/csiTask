@@ -5,7 +5,7 @@
 
   font-family: "Open Sans", sans-serif;
 
-  color: white;
+  color: black;
 
   padding: 0px;
   margin: 0px;
@@ -13,12 +13,20 @@
   list-style: none;
 }
 
-html {
+/* html {
   background: url(./images/bg2.jpg) no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+} */
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #f7f7f7;
 }
 
 #toolbar {
@@ -85,6 +93,21 @@ html {
 #toolbar .toolbarButton:last-child {
   border-top-right-radius: 26px;
   border-bottom-right-radius: 26px;
+}
+
+#board {
+  position: absolute;
+  inset: 0;
+
+  background-color: #f7f7f7;
+
+  background-image: radial-gradient(
+    circle,
+    rgba(0, 0, 0, 0.12) 1px,
+    transparent 1px
+  );
+
+  background-size: 24px 24px;
 }
 
 .frostedGlass {
