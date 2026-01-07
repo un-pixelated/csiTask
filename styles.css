@@ -1,0 +1,33 @@
+* {
+  border-width: 1px;
+  border-style: solid;
+  border-color: black;
+}
+
+html {
+  background: url(./images/bg.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+#toolbar {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  height: 52px;
+  padding: 0 18px;
+  border-radius: 26px;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.frostedGlass {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(15px);
+}
