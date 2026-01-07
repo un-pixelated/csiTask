@@ -1,7 +1,7 @@
 * {
-  border-width: 1px;
+  /* border-width: 1px;
   border-style: solid;
-  border-color: black;
+  border-color: black; */
 
   font-family: "Open Sans", sans-serif;
 
@@ -14,7 +14,7 @@
 }
 
 html {
-  background: url(./images/bg.jpg) no-repeat center center fixed;
+  background: url(./images/bg2.jpg) no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -25,6 +25,9 @@ html {
   position: fixed;
   top: 20px;
 
+  width: 560px;
+  max-width: 90vw;
+
   /* left: 50% gets the toolbar element and shifts it's left end to the
   middle of my screen. transform: translateX(-50%) translates the toolbar
   (from it's starting position) by 50% of it's width in the opposite (left)
@@ -34,17 +37,57 @@ html {
   transform: translateX(-50%);
 
   height: 52px;
-  padding: 0 18px;
+
+  /* padding: 4px; */
+
   border-radius: 26px;
 
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 0;
 
   z-index: 99;
 }
 
+.toolbarButton {
+  height: 100%;
+  padding: 0 16px;
+
+  border-radius: 0;
+  border: none;
+
+  background: rgba(255, 255, 255, 0.12);
+
+  font-size: 14px;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex: 1;
+}
+
+/* #toolbar .toolbarButton + .toolbarButton {
+  box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.12);
+} */
+
+#toolbar .toolbarButton:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transition: background-color 300ms ease;
+}
+
+#toolbar .toolbarButton:first-child {
+  border-top-left-radius: 26px;
+  border-bottom-left-radius: 26px;
+}
+
+#toolbar .toolbarButton:last-child {
+  border-top-right-radius: 26px;
+  border-bottom-right-radius: 26px;
+}
+
 .frostedGlass {
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.01);
+  backdrop-filter: blur(4px);
 }
