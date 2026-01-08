@@ -194,3 +194,67 @@ body {
   position: absolute;
   transform: translate(-50%, -50%);
 }
+
+/* PIN STYLES */
+.pin {
+  position: absolute;
+  transform: translate(-50%, -100%);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pinIcon {
+  width: 40px;
+  height: 40px;
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(3px);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: move;
+  transition: background-color 200ms ease;
+}
+
+.pinIcon:hover {
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.pinIcon svg {
+  width: 24px;
+  height: 24px;
+  stroke: white;
+  fill: none;
+  pointer-events: none;
+}
+
+.pinTextBox {
+  margin-top: 8px;
+  padding: 12px;
+  border-radius: 12px;
+  min-width: 200px;
+  max-width: 300px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.pinTextarea {
+  width: 100%;
+  min-height: 80px;
+  background: transparent;
+  border: none;
+  outline: none;
+  resize: vertical;
+  font-family: "Open Sans", sans-serif;
+  font-size: 14px;
+  color: white;
+}
+
+.pinTextarea::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+#pinButton.active {
+  background: rgba(255, 255, 255, 0.45);
+}
