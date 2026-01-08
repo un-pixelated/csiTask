@@ -6,19 +6,19 @@ let camX = -6000 + window.innerWidth / 2;
 let camY = -6000 + window.innerHeight / 2;
 let scale = 1;
 
-const WORLD_CENTER = 6000;
+const worldCenter = 6000;
 
 function worldToDisplay(worldX, worldY) {
   return {
-    x: worldX - WORLD_CENTER,
-    y: worldY - WORLD_CENTER,
+    x: worldX - worldCenter,
+    y: worldY - worldCenter,
   };
 }
 
 function displayToWorld(displayX, displayY) {
   return {
-    x: displayX + WORLD_CENTER,
-    y: displayY + WORLD_CENTER,
+    x: displayX + worldCenter,
+    y: displayY + worldCenter,
   };
 }
 
