@@ -101,7 +101,6 @@ gridButton.addEventListener("click", () => {
   }
 });
 
-// PIN FUNCTIONALITY
 const pinButton = document.getElementById("pinButton");
 let pinMode = false;
 let draggedPin = null;
@@ -166,7 +165,6 @@ function createPin(worldX, worldY) {
   textBoxContainer.appendChild(deleteBtn);
   pin.appendChild(textBoxContainer);
 
-  // Prevent all interactions with text box and delete button from triggering drag
   textarea.addEventListener("mousedown", (e) => {
     e.stopPropagation();
   });
@@ -187,7 +185,6 @@ function createPin(worldX, worldY) {
     e.stopPropagation();
   });
 
-  // Only the pin icon can initiate drag
   pinIcon.addEventListener("mousedown", (e) => {
     if (e.button !== 0) return;
     e.stopPropagation();
