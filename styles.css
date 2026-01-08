@@ -177,7 +177,7 @@ body {
 
 .frostedGlass {
   background: rgba(0, 0, 0, 0.45);
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(20px) saturate(90%);
 }
 
 .toolbarIcon {
