@@ -1,8 +1,8 @@
 const viewport = document.getElementById("viewport");
 const world = document.getElementById("world");
 
-let camX = -4000;
-let camY = -4000;
+let camX = -6000;
+let camY = -6000;
 let scale = 1;
 
 function updateCamera() {
