@@ -7,13 +7,20 @@
     <title>Freeform Clone</title>
   </head>
   <body>
-    <div id="toolbar" class="frostedGlass">
-      <button class="toolbarButton">Pin</button>
-      <button class="toolbarButton">Shape</button>
-      <button class="toolbarButton">Image</button>
+    <div id="toolbarWrapper">
+      <div id="toolbar" class="frostedGlass">
+        <button class="toolbarButton">Pin</button>
+        <button class="toolbarButton">Shape</button>
+        <button class="toolbarButton">Image</button>
+      </div>
+
+      <div id="glassButtonWrapper" class="frostedGlass">
+        <button id="gridButton">G</button>
+      </div>
     </div>
 
     <div id="board"></div>
+
     <script src="./app.js"></script>
   </body>
 </html>
