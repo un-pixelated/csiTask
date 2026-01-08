@@ -84,6 +84,21 @@ gridButton.addEventListener("click", () => {
   hoverTimer = null;
   board.classList.toggle("showGrid", gridLocked);
   gridButton.classList.toggle("active", gridLocked);
+
+  // Update icon
+  const gridIcon = gridButton.querySelector("svg");
+  if (gridLocked) {
+    gridIcon.innerHTML = `
+      <path d="M12 3v17a1 1 0 0 1-1 1H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v6a1 1 0 0 1-1 1H3"/>
+      <path d="m16 19 2 2 4-4"/>
+    `;
+  } else {
+    gridIcon.innerHTML = `
+      <path d="M12 3v18"/>
+      <path d="M3 12h18"/>
+      <rect x="3" y="3" width="18" height="18" rx="2"/>
+    `;
+  }
 });
 
 // PIN FUNCTIONALITY
