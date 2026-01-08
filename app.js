@@ -34,6 +34,8 @@ let lastY = 0;
 
 viewport.addEventListener("mousedown", (e) => {
   if (e.button !== 0) return;
+  if (pinMode) return;
+  if (e.target.closest(".pin")) return;
   isPanning = true;
   lastX = e.clientX;
   lastY = e.clientY;
@@ -88,6 +90,10 @@ gridButton.addEventListener("click", () => {
 const pinButton = document.getElementById("pinButton");
 let pinMode = false;
 let draggedPin = null;
+let isDraggingPin = false;
+let dragStartX = 0;
+let dragStartY = 0;
+const DRAG_THRESHOLD = 5;
 
 pinButton.addEventListener("click", () => {
   pinMode = !pinMode;
@@ -95,14 +101,12 @@ pinButton.addEventListener("click", () => {
   viewport.style.cursor = pinMode ? "crosshair" : "default";
 });
 
-// Create a pin element
 function createPin(worldX, worldY) {
   const pin = document.createElement("div");
   pin.className = "pin";
   pin.style.left = worldX + "px";
   pin.style.top = worldY + "px";
 
-  // Pin icon (map pin SVG)
   const pinIcon = document.createElement("div");
   pinIcon.className = "pinIcon";
   pinIcon.innerHTML = `
@@ -113,32 +117,69 @@ function createPin(worldX, worldY) {
   `;
   pin.appendChild(pinIcon);
 
-  // Text box
+  const textBoxContainer = document.createElement("div");
+  textBoxContainer.className = "pinTextBoxContainer";
+  textBoxContainer.style.display = "none";
+
   const textBox = document.createElement("div");
   textBox.className = "pinTextBox frostedGlass";
-  textBox.style.display = "none";
 
   const textarea = document.createElement("textarea");
   textarea.className = "pinTextarea";
   textarea.placeholder = "Enter text...";
   textBox.appendChild(textarea);
 
-  pin.appendChild(textBox);
+  const deleteBtn = document.createElement("button");
+  deleteBtn.className = "pinDeleteBtn frostedGlass";
+  deleteBtn.innerHTML = `
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M3 6h18"/>
+      <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/>
+      <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/>
+      <line x1="10" x2="10" y1="11" y2="17"/>
+      <line x1="14" x2="14" y1="11" y2="17"/>
+    </svg>
+  `;
+  deleteBtn.title = "Delete pin";
 
-  // Click to toggle text box
-  pinIcon.addEventListener("click", (e) => {
+  deleteBtn.addEventListener("click", (e) => {
     e.stopPropagation();
-    const isVisible = textBox.style.display !== "none";
-    textBox.style.display = isVisible ? "none" : "block";
-    if (!isVisible) {
-      textarea.focus();
-    }
+    pin.remove();
   });
 
-  // Drag functionality
+  textBoxContainer.appendChild(textBox);
+  textBoxContainer.appendChild(deleteBtn);
+  pin.appendChild(textBoxContainer);
+
+  // Prevent all interactions with text box and delete button from triggering drag
+  textarea.addEventListener("mousedown", (e) => {
+    e.stopPropagation();
+  });
+
+  textarea.addEventListener("click", (e) => {
+    e.stopPropagation();
+  });
+
+  deleteBtn.addEventListener("mousedown", (e) => {
+    e.stopPropagation();
+  });
+
+  deleteBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+  });
+
+  textBox.addEventListener("mousedown", (e) => {
+    e.stopPropagation();
+  });
+
+  // Only the pin icon can initiate drag
   pinIcon.addEventListener("mousedown", (e) => {
     if (e.button !== 0) return;
     e.stopPropagation();
+
+    dragStartX = e.clientX;
+    dragStartY = e.clientY;
+    isDraggingPin = false;
     draggedPin = pin;
     pin.style.zIndex = "1000";
   });
@@ -147,11 +188,10 @@ function createPin(worldX, worldY) {
   return pin;
 }
 
-// Click to place pin
 viewport.addEventListener("click", (e) => {
   if (!pinMode) return;
+  if (e.target.closest(".pin")) return;
 
-  // Convert viewport click to world coordinates
   const viewportX = e.clientX;
   const viewportY = e.clientY;
   const worldX = (viewportX - camX) / scale;
@@ -159,28 +199,48 @@ viewport.addEventListener("click", (e) => {
 
   createPin(worldX, worldY);
 
-  // Exit pin mode after placing
   pinMode = false;
   pinButton.classList.remove("active");
   viewport.style.cursor = "default";
 });
 
-// Drag pin
 window.addEventListener("mousemove", (e) => {
   if (!draggedPin) return;
 
-  const viewportX = e.clientX;
-  const viewportY = e.clientY;
-  const worldX = (viewportX - camX) / scale;
-  const worldY = (viewportY - camY) / scale;
+  const dx = Math.abs(e.clientX - dragStartX);
+  const dy = Math.abs(e.clientY - dragStartY);
 
-  draggedPin.style.left = worldX + "px";
-  draggedPin.style.top = worldY + "px";
+  if (dx > DRAG_THRESHOLD || dy > DRAG_THRESHOLD) {
+    isDraggingPin = true;
+  }
+
+  if (isDraggingPin) {
+    const viewportX = e.clientX;
+    const viewportY = e.clientY;
+    const worldX = (viewportX - camX) / scale;
+    const worldY = (viewportY - camY) / scale;
+
+    draggedPin.style.left = worldX + "px";
+    draggedPin.style.top = worldY + "px";
+  }
 });
 
-window.addEventListener("mouseup", () => {
+window.addEventListener("mouseup", (e) => {
   if (draggedPin) {
+    if (!isDraggingPin) {
+      const textBoxContainer = draggedPin.querySelector(".pinTextBoxContainer");
+      const textarea = draggedPin.querySelector(".pinTextarea");
+      const isVisible = textBoxContainer.style.display !== "none";
+
+      textBoxContainer.style.display = isVisible ? "none" : "flex";
+
+      if (!isVisible) {
+        setTimeout(() => textarea.focus(), 10);
+      }
+    }
+
     draggedPin.style.zIndex = "10";
     draggedPin = null;
+    isDraggingPin = false;
   }
 });
