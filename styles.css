@@ -276,8 +276,8 @@ body {
   height: 40px;
   border-radius: 50%;
   border: none;
-  background: rgba(220, 38, 38, 0.4);
-  backdrop-filter: blur(3px);
+  background: rgba(220, 38, 38, 0.5);
+  backdrop-filter: blur(20px) saturate(90%);
   cursor: pointer;
   display: flex;
   align-items: center;
