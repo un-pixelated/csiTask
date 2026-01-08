@@ -127,13 +127,26 @@ body {
   transition: background-color 300ms ease;
 }
 
+#viewport {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+}
+
+#world {
+  position: absolute;
+  width: 12000px;
+  height: 12000px;
+  transform-origin: 0 0;
+}
+
 #board {
   position: absolute;
-  inset: 0;
+  inset: 0px;
 
   background-color: #f7f7f7;
 
-  background-image: radial-gradient(black 0.5px, transparent 0);
+  background-image: radial-gradient(black 1px, transparent 0);
   background-size: 30px 30px;
   background-position: -15px -15px;
 }
@@ -150,14 +163,12 @@ body {
   background-position: 0px 0px;
 
   opacity: 0;
-  transform: scale(1.02);
 
-  transition: opacity 180ms ease, transform 220ms ease;
+  transition: opacity 180ms ease;
 }
 
 #board.showGrid::after {
   opacity: 1;
-  transform: scale(1);
 }
 
 #gridButton.active {
