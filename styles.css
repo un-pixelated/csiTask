@@ -164,7 +164,7 @@ body {
 
   opacity: 0;
 
-  transition: opacity 180ms ease;
+  transition: opacity 300ms ease;
 }
 
 #board.showGrid::after {
@@ -177,7 +177,7 @@ body {
 
 .frostedGlass {
   background: rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(1px);
+  backdrop-filter: blur(3px);
 }
 
 .toolbarIcon {
@@ -190,12 +190,7 @@ body {
   pointer-events: none;
 }
 
-.pin {
+.canvas-object {
   position: absolute;
-  width: 10px;
-  height: 10px;
-  background: red;
-  border-radius: 50%;
-
   transform: translate(-50%, -50%);
 }
