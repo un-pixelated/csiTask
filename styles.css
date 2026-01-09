@@ -313,7 +313,7 @@ body {
   z-index: 5;
   cursor: move;
   border-radius: 4px;
-  overflow: hidden;
+  overflow: visible;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.05);
   transition: box-shadow 200ms ease;
 }
@@ -326,4 +326,36 @@ body {
   display: block;
   user-select: none;
   -webkit-user-drag: none;
+  border-radius: 4px;
+}
+
+.imageDeleteBtn {
+  position: absolute;
+  top: 50%;
+  right: -48px;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(220, 38, 38, 0.5);
+  backdrop-filter: blur(20px) saturate(90%);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 200ms ease;
+  flex-shrink: 0;
+}
+
+.imageDeleteBtn:hover {
+  background: rgba(220, 38, 38, 0.6);
+}
+
+.imageDeleteBtn svg {
+  width: 16px;
+  height: 16px;
+  stroke: white;
+  fill: none;
+  pointer-events: none;
 }

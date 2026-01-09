@@ -298,12 +298,44 @@ function createImage(worldX, worldY, imageSrc) {
   img.style.width = "auto";
   img.style.height = "auto";
   img.style.display = "block";
-  img.style.pointerEvents = "none";
-  img.style.userSelect = "none";
-  img.style.webkitUserDrag = "none";
   img.draggable = false;
 
   imageContainer.appendChild(img);
+
+  // Delete button (to the side)
+  const deleteBtn = document.createElement("button");
+  deleteBtn.className = "imageDeleteBtn frostedGlass";
+  deleteBtn.innerHTML = `
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M3 6h18"/>
+      <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/>
+      <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/>
+      <line x1="10" x2="10" y1="11" y2="17"/>
+      <line x1="14" x2="14" y1="11" y2="17"/>
+    </svg>
+  `;
+  deleteBtn.title = "Delete image";
+  deleteBtn.style.display = "none";
+
+  deleteBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    imageContainer.remove();
+  });
+
+  deleteBtn.addEventListener("mousedown", (e) => {
+    e.stopPropagation();
+  });
+
+  imageContainer.appendChild(deleteBtn);
+
+  // Show/hide delete button on hover
+  imageContainer.addEventListener("mouseenter", () => {
+    deleteBtn.style.display = "flex";
+  });
+
+  imageContainer.addEventListener("mouseleave", () => {
+    deleteBtn.style.display = "none";
+  });
 
   // Make image draggable with smooth movement
   let isDraggingImage = false;
@@ -312,21 +344,18 @@ function createImage(worldX, worldY, imageSrc) {
 
   imageContainer.addEventListener("mousedown", (e) => {
     if (e.button !== 0) return;
+    if (e.target.closest(".imageDeleteBtn")) return;
     e.stopPropagation();
 
     isDraggingImage = true;
     imageContainer.style.zIndex = "9";
 
-    // Calculate offset from mouse to element position
-    const rect = imageContainer.getBoundingClientRect();
     const imageWorldX = parseFloat(imageContainer.style.left);
     const imageWorldY = parseFloat(imageContainer.style.top);
 
-    // Convert mouse position to world coordinates
     const mouseWorldX = (e.clientX - camX) / scale;
     const mouseWorldY = (e.clientY - camY) / scale;
 
-    // Store the offset
     dragOffsetX = imageWorldX - mouseWorldX;
     dragOffsetY = imageWorldY - mouseWorldY;
   });
@@ -339,7 +368,6 @@ function createImage(worldX, worldY, imageSrc) {
     const worldX = (viewportX - camX) / scale;
     const worldY = (viewportY - camY) / scale;
 
-    // Apply the offset so image doesn't snap to cursor
     imageContainer.style.left = worldX + dragOffsetX + "px";
     imageContainer.style.top = worldY + dragOffsetY + "px";
   };
