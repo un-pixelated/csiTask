@@ -256,7 +256,6 @@ window.addEventListener("mouseup", (e) => {
   }
 });
 
-// IMAGE UPLOAD FUNCTIONALITY
 const imageButton = document.querySelector(
   '.toolbarButton[title="Upload image"]'
 );
@@ -302,7 +301,6 @@ function createImage(worldX, worldY, imageSrc) {
 
   imageContainer.appendChild(img);
 
-  // Delete button (to the side)
   const deleteBtn = document.createElement("button");
   deleteBtn.className = "imageDeleteBtn frostedGlass";
   deleteBtn.innerHTML = `
@@ -315,7 +313,6 @@ function createImage(worldX, worldY, imageSrc) {
     </svg>
   `;
   deleteBtn.title = "Delete image";
-  deleteBtn.style.display = "none";
 
   deleteBtn.addEventListener("click", (e) => {
     e.stopPropagation();
@@ -328,16 +325,14 @@ function createImage(worldX, worldY, imageSrc) {
 
   imageContainer.appendChild(deleteBtn);
 
-  // Show/hide delete button on hover
   imageContainer.addEventListener("mouseenter", () => {
-    deleteBtn.style.display = "flex";
+    deleteBtn.classList.add("visible");
   });
 
   imageContainer.addEventListener("mouseleave", () => {
-    deleteBtn.style.display = "none";
+    deleteBtn.classList.remove("visible");
   });
 
-  // Make image draggable with smooth movement
   let isDraggingImage = false;
   let dragOffsetX = 0;
   let dragOffsetY = 0;
