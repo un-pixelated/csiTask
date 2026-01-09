@@ -333,7 +333,7 @@ body {
   display: block;
   user-select: none;
   -webkit-user-drag: none;
-  border-radius: 4px;
+  border-radius: 12px;
 }
 
 .imageDeleteBtn {
