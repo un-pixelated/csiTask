@@ -240,7 +240,8 @@ body {
 
 .pinTextBoxContainer {
   position: absolute;
-  bottom: 50px;
+  bottom: 48px;
+  right: -30px;
   display: flex;
   flex-direction: row;
   align-items: flex-start;
