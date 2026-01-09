@@ -140,7 +140,6 @@ function createPin(worldX, worldY) {
   const textarea = document.createElement("textarea");
   textarea.className = "pinTextarea";
   textarea.placeholder = "Enter text...";
-  textBox.appendChild(textarea);
 
   const deleteBtn = document.createElement("button");
   deleteBtn.className = "pinDeleteBtn frostedGlass";
@@ -160,8 +159,9 @@ function createPin(worldX, worldY) {
     pin.remove();
   });
 
+  textBox.appendChild(textarea);
+  textBox.appendChild(deleteBtn);
   textBoxContainer.appendChild(textBox);
-  textBoxContainer.appendChild(deleteBtn);
   pin.appendChild(textBoxContainer);
 
   textarea.addEventListener("mousedown", (e) => {
