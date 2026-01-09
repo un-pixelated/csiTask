@@ -219,6 +219,8 @@ body {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   position: relative;
   z-index: 2;
+  /* left: 50%;
+  transform: translateX(-50%); */
 }
 
 .pinIcon:hover {
@@ -232,6 +234,8 @@ body {
   fill: none;
   stroke-width: 2.5;
   pointer-events: none;
+  /* left: 50%;
+  transform: translateX(-50%); */
 }
 
 .pinTextBoxContainer {
@@ -301,4 +305,25 @@ body {
 
 #pinButton.active {
   background: rgba(255, 255, 255, 0.45);
+}
+
+.canvasImage {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+  cursor: move;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 200ms ease;
+}
+
+.canvasImage:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(0, 0, 0, 0.08);
+}
+
+.canvasImage img {
+  display: block;
+  user-select: none;
+  -webkit-user-drag: none;
 }

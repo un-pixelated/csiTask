@@ -85,7 +85,6 @@ gridButton.addEventListener("click", () => {
   board.classList.toggle("showGrid", gridLocked);
   gridButton.classList.toggle("active", gridLocked);
 
-  // Update icon
   const gridIcon = gridButton.querySelector("svg");
   if (gridLocked) {
     gridIcon.innerHTML = `
@@ -255,4 +254,124 @@ window.addEventListener("mouseup", (e) => {
     draggedPin = null;
     isDraggingPin = false;
   }
+});
+
+// IMAGE UPLOAD FUNCTIONALITY
+const imageButton = document.querySelector(
+  '.toolbarButton[title="Upload image"]'
+);
+let imageMode = false;
+let pendingImage = null;
+
+imageButton.addEventListener("click", () => {
+  const fileInput = document.createElement("input");
+  fileInput.type = "file";
+  fileInput.accept = "image/*";
+
+  fileInput.addEventListener("change", (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      pendingImage = event.target.result;
+      imageMode = true;
+      imageButton.classList.add("active");
+      viewport.style.cursor = "crosshair";
+    };
+    reader.readAsDataURL(file);
+  });
+
+  fileInput.click();
+});
+
+function createImage(worldX, worldY, imageSrc) {
+  const imageContainer = document.createElement("div");
+  imageContainer.className = "canvasImage";
+  imageContainer.style.left = worldX + "px";
+  imageContainer.style.top = worldY + "px";
+
+  const img = document.createElement("img");
+  img.src = imageSrc;
+  img.style.maxWidth = "400px";
+  img.style.maxHeight = "400px";
+  img.style.width = "auto";
+  img.style.height = "auto";
+  img.style.display = "block";
+  img.style.pointerEvents = "none";
+  img.style.userSelect = "none";
+  img.style.webkitUserDrag = "none";
+  img.draggable = false;
+
+  imageContainer.appendChild(img);
+
+  // Make image draggable with smooth movement
+  let isDraggingImage = false;
+  let dragOffsetX = 0;
+  let dragOffsetY = 0;
+
+  imageContainer.addEventListener("mousedown", (e) => {
+    if (e.button !== 0) return;
+    e.stopPropagation();
+
+    isDraggingImage = true;
+    imageContainer.style.zIndex = "9";
+
+    // Calculate offset from mouse to element position
+    const rect = imageContainer.getBoundingClientRect();
+    const imageWorldX = parseFloat(imageContainer.style.left);
+    const imageWorldY = parseFloat(imageContainer.style.top);
+
+    // Convert mouse position to world coordinates
+    const mouseWorldX = (e.clientX - camX) / scale;
+    const mouseWorldY = (e.clientY - camY) / scale;
+
+    // Store the offset
+    dragOffsetX = imageWorldX - mouseWorldX;
+    dragOffsetY = imageWorldY - mouseWorldY;
+  });
+
+  const handleImageMove = (e) => {
+    if (!isDraggingImage) return;
+
+    const viewportX = e.clientX;
+    const viewportY = e.clientY;
+    const worldX = (viewportX - camX) / scale;
+    const worldY = (viewportY - camY) / scale;
+
+    // Apply the offset so image doesn't snap to cursor
+    imageContainer.style.left = worldX + dragOffsetX + "px";
+    imageContainer.style.top = worldY + dragOffsetY + "px";
+  };
+
+  const handleImageUp = () => {
+    if (isDraggingImage) {
+      imageContainer.style.zIndex = "5";
+      isDraggingImage = false;
+    }
+  };
+
+  window.addEventListener("mousemove", handleImageMove);
+  window.addEventListener("mouseup", handleImageUp);
+
+  world.appendChild(imageContainer);
+  return imageContainer;
+}
+
+viewport.addEventListener("click", (e) => {
+  if (!imageMode) return;
+  if (e.target.closest(".pin")) return;
+  if (e.target.closest(".canvasImage")) return;
+
+  const viewportX = e.clientX;
+  const viewportY = e.clientY;
+  const worldX = (viewportX - camX) / scale;
+  const worldY = (viewportY - camY) / scale;
+
+  createImage(worldX, worldY, pendingImage);
+
+  imageMode = false;
+  pendingImage = null;
+  imageButton.classList.remove("active");
+  viewport.style.cursor = "default";
 });
