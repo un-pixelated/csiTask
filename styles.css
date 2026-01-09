@@ -160,7 +160,7 @@ body {
   background-image: linear-gradient(rgba(0, 0, 0, 0.25) 1px, transparent 1px),
     linear-gradient(90deg, rgba(0, 0, 0, 0.25) 1px, transparent 1px);
   background-size: 30px 30px;
-  background-position: 0px 0px;
+  background-position: -0.5px -0.5px;
 
   opacity: 0;
 
@@ -247,6 +247,7 @@ body {
 .pinTextBox {
   padding: 12px;
   border-radius: 12px;
+  border-bottom-right-radius: 2px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   position: relative;
   display: flex;
@@ -254,7 +255,7 @@ body {
 
 .pinTextarea {
   min-width: 250px;
-  max-width: 350px;
+  max-width: 500px;
   min-height: 100px;
   max-height: 500px;
   background: transparent;
