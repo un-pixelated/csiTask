@@ -1,12 +1,13 @@
 # glassBoard
 
-An infinite canvas whiteboard with pins and images.
+An infinite^ canvas whiteboard with pins and images.
+My front-end development task for CSI.
 
 Deployed at: https://csi-task.vercel.app
 
 ## Features
 
-- Infinite pannable canvas with grid overlay
+- Infinite^ pannable canvas with grid overlay
 - Pin notes with text
 - Upload and place images
 - Drag to reposition elements
@@ -40,12 +41,6 @@ Open index.html in a web browser or visit the deployed site.
 - Drag image to reposition
 - Hover to reveal delete button
 
-## Files
-
-- index.html - Main page
-- app.js - Canvas logic and interactions
-- styles.css - Layout and styling
-
 ## Requirements
 
 Modern browser with ES6 support.
@@ -54,3 +49,5 @@ No build process or dependencies required.
 ## Deployment
 
 Hosted on Vercel at https://csi-task.vercel.app
+
+<sub><sup>^Infinite as in 12000px by 12000px canvas</sup></sub>.
