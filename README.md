@@ -50,4 +50,4 @@ No build process or dependencies required.
 
 Hosted on Vercel at https://csi-task.vercel.app
 
-<sub><sup>^Infinite as in 12000px by 12000px canvas</sup></sub>.
+<sub><sup>^Infinite as in 12000px by 12000px canvas.</sup></sub>
